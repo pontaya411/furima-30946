@@ -2,19 +2,18 @@
 
 ## usersテーブル
 
-
-| Column             | Type    | Option
-|--------------------|---------|---------------|
-| nickname           | string  | null:   false |
-| last_name          | string  | null:   false |
-| first_name         | string  | null:   false |
-| last_name_kana     | string  | null:   false |
-| first_name_kana    | string  | null:   false |
-| email              | string  | null:   false |
-| encrypted_password | string  | null:   false |
+| Column             | Type   | Option
+|--------------------|--------|-------------|
+| nickname           | string | null :false |
+| last_name          | string | null :false |
+| first_name         | string | null :false |
+| last_name_kana     | string | null :false |
+| first_name_kana    | string | null :false |
+| email              | string | null :false |
+| encrypted_password | string | null :false |
+| birthday           | string | null :false |
 
 ### Association
-
 
 <!-- 一人のuserは一つでも二つでも商品を購入できるため -->
 - has_many :items
@@ -24,18 +23,17 @@
 <!-- 商品情報を保存するテーブル -->
 ## items テーブル
 
-* Database initialization
 | Column       | Type       | Option            |
-|--------------|------------|-------------------|
-| name         | string     | null :false       |
-| subscription | text       | null :false       |
-| status_id    | integer    | null :false       |
-| category_ud  | integer    | null :false       |
-| price        | integer    | null :false       |
-| ship_fee_id  | integer    | null :false       |
-| ship_date_id | integer    | null :false       |
-| prefecture   | integer    | null :false       |
-| user         | references | foreign_key :true |
+|---------------|------------|-------------------|
+| name          | string     | null :false       |
+| subscription  | text       | null :false       |
+| status_id     | integer    | null :false       |
+| category_ud   | integer    | null :false       |
+| price         | integer    | null :false       |
+| ship_fee_id   | integer    | null :false       |
+| ship_date_id  | integer    | null :false       |
+| prefecture_id | integer    | null :false       |
+| user          | references | foreign_key :true |
 
 ### Association
 
@@ -59,20 +57,20 @@
 <!-- itemsが存在しなければ、購入履歴は存在できない -->
 - belongs_to :item
 <!-- itemが存在しなければ発送先は存在できない -->
-- has_one :addresses
+- has_one :address
 
 <!-- 発送先を保存するテーブル -->
 ## addresses テーブル
 
-| Column         | Type       | Option            |
-|----------------|------------|-------------------|
-| post_code      | string     | null :false       |
-| prefecture     | string     | # ActiveHushで実装 |
-| city           | string     | null :false       |
-| address_number | string     |
+| Column         | Type       | Option           |
+|----------------|------------|------------------|
+| post_code      | string     | null :false      |
+| prefecture_id  | integer    | null :false      |
+| city           | string     | null :false      |
+| address_number | string     | null :false      |
 | building_name  | string     |
-| phone_number   | string     | null :false       |
-| buy            | references | foreign_key       |
+| phone_number   | string     | null :false      |
+| buy            | references | foreign_key :true|
  
 ## Association
 
