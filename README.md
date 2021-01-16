@@ -4,12 +4,14 @@
 
 
 | Column         | Type    | Option
-|-----------     |---------|----------------|
-| nickname       | string  | null:   false  |
-| last_name      | string  | null:   false  |
-| first_name     | string  | null:   false  |
-| email          | string  | unique: true   |
-| password       | string  | null:   false  |
+|-----------     |---------|--------------------|
+| nickname       | string  | null:   false      |
+| last_name      | string  | null:   false      |
+| first_name     | string  | null:   false      |
+| last_name_kana | string  | null:   false      |
+| first_name_kana| string  | null:   false      |
+| email          | string  | null:   false      |
+| password       | string  | encrypted_password |
 
 ### Association
 
@@ -29,11 +31,12 @@
 |-------------------|------------|-------------------|
 | item_name         | string     | null :false       |
 | item_subscription | text       | null :false       |
-| item_status       | text       | null :false       |
+| item_status       | integer    | # ActiveHushで実装 |
+| item_category     | integer    |# ActiveHushで実装  |
 | item_price        | integer    | null :false       |
-| ship_fee          | integer    | null :false       |
-| ship_date         | string     | null :false       |
-| ship_from         | string     | null :false       |
+| ship_fee          | integer    | # ActiveHushで実装 |
+| ship_date         | integer    | # ActiveHushで実装 |
+| ship_from         | integer    | # ActiveHushで実装 |
 | user              | references | foreign_key :true |
 
 ### Association
@@ -51,6 +54,7 @@
 | Column   | Type       | Option            |
 |----------|------------|-------------------|
 | user     | references | foreign_key :true |
+| item     | references | foreign_kry :true |
 
 ### Association
 
@@ -58,27 +62,21 @@
 - belongs_to :users
 <!-- itemsが存在しなければ、購入履歴は存在できない -->
 - belongs_to :items
-<!-- 一つの購入記録に対して発送先は一つだけ。発送先にとっての親 -->
-- has_one :addresses
 
 <!-- 発送先を保存するテーブル -->
 ## addresses テーブル
 
-| Column         | Type       | Option      |
-|----------------|------------|-------------|
-| post_code      | integer    | null :false |
-| prefecture     | string     | null :false |
-| city           | string     | null :false |
-| address_number | integer    | null :false |
+| Column         | Type       | Option            |
+|----------------|------------|-------------------|
+| post_code      | integer    | # ActiveHushで実装 |
+| prefecture     | integer    | # ActiveHushで実装 |
+| city           | string     | null :false       |
+| address_number | integer    | null :false       |
 | building_name  | string     |
-| phone_number   | integer    | null :false |
-| user           | references | foreign_key |
-
+| phone_number   | integer    | null :false       |
+| user           | references | foreign_key       |   
+ 
 ## Association
 
-<!-- user情報が存在しなければ、発送先は存在できない -->
-- belongs_to :users
-<!-- 一つの商品に発送先は一つ。商品情報に対しての子の関係 -->
-- belongs_to :items
 <!-- 一つの購入記録に対して発送先は一つ。購入記録に対しての子の関係 -->
 - belongs_to :buys
