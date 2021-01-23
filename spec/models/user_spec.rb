@@ -39,8 +39,6 @@ RSpec.describe User, type: :model do
     end  
   end
 
-
-  context "ユーザー新規登録できる場合" do
     it 'パスワードは、6文字以上での入力が必須であること' do
       @user.password = '00000'
       @user.valid?
@@ -90,6 +88,9 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('First name kana Full-width katakana characters')
     end
+    
+    context "ユーザー新規登録できる場合" do
+   
     it "すべての値が正しく入っていればユーザー登録できる" do
       expect(@user).to be_valid
     end
