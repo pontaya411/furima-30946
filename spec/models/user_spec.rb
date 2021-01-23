@@ -31,6 +31,12 @@ RSpec.describe User, type: :model do
       another_user.valid?
       expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
+
+    it "生年月日が空では登録できない" do
+      @user.birthday = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Birthday can't be blank")
+    end  
   end
 
 
@@ -83,6 +89,9 @@ RSpec.describe User, type: :model do
       @user.first_name_kana = "ｱﾔ"
       @user.valid?
       expect(@user.errors.full_messages).to include('First name kana Full-width katakana characters')
+    end
+    it "すべての値が正しく入っていればユーザー登録できる" do
+      expect(@user).to be_valid
     end
   end  
  end
