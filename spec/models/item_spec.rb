@@ -12,7 +12,6 @@ RSpec.describe Item, type: :model do
     context '商品出品がうまくいくとき' do
 
       it "全ての情報が入力されていれば出品できる" do
-        binding.pry
         expect(@item).to be_valid
         #  expect(@item.valid?).to eq true
       end

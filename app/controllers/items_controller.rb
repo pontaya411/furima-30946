@@ -19,9 +19,8 @@ class ItemsController < ApplicationController
 
   private
 
-  # imageという名前で送られできた画像ファイルの保存を許可する記述
   def item_params
-    params.require(:item).permit(:image).merge(user_id: current_user.id)
+    params.require(:item).permit(:image, :name, :subscription, :status_id, :category_id, :price, :ship_fee_id, :ship_date_id, :prefecture_id ).merge(user_id: current_user.id)
     
   end
 end
