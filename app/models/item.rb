@@ -6,14 +6,16 @@ class Item < ApplicationRecord
 
   # 商品名（name)と商品の説明(subscription)は必須であることのバリデーション
   # with_options presence: true
-  validates :image, presence: true
-  validates :name, presence: true
-  validates :subscription, presence: true
-  validates :price, presence: true
-  # validates :price, format: {with: less_than_or_equal_to: 300, greater_than_or_equal_to: 9,999,999, message: "out of range"}
+   validates :image, presence: true
+   validates :name, presence: true
+   validates :subscription, presence:true
+   validates :price, presence:true
+  
+  # ３００円以上９９９万円以下のバリデーション。numericalityは半角数字を許可します。
   validates :price,
             numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'is out of setting range' }
-  # ３００円以上９９９万円以下のバリデーション。numericalityは半角数字を許可します。
+  # 半角数字だけを許可するバリデーション
+  validates :price, numericality: { only_integer: true, message: "is invalid. Input half-width characters." }
 
   # ActiveHashに下記のカラムが紐づいている
   extend ActiveHash::Associations::ActiveRecordExtensions
