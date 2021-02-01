@@ -4,12 +4,13 @@ class Item < ApplicationRecord
   # 下記、ActiveStorageを導入し、itemテーブルのレコードと画像を紐づけるためのメソッド記述
   has_one_attached :image
 
-  # 商品名（name)と商品の説明(subscription)は必須であることのバリデーション
-  # with_options presence: true
-   validates :image, presence: true
-   validates :name, presence: true
-   validates :subscription, presence:true
-   validates :price, presence:true
+  # 空欄では登録できないバリデーション
+   with_options presence: true do
+   validates :image
+   validates :name
+   validates :subscription
+   validates :price
+  end
   
   # ３００円以上９９９万円以下のバリデーション。numericalityは半角数字を許可します。
   validates :price,

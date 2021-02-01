@@ -54,6 +54,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Ship fee must be other than 1')
       end
 
+      it '発送までの日数が選択されていないと出品できない' do
+        @item.ship_date_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Ship date must be other than 1')
+      end
+
       it '発送元の地域が選択されていないと出品できない' do
         @item.prefecture_id = 1
         @item.valid?
