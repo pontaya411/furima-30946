@@ -28,7 +28,7 @@
 | name          | string     | null :false       |
 | subscription  | text       | null :false       |
 | status_id     | integer    | null :false       |
-| category_ud   | integer    | null :false       |
+| category_id   | integer    | null :false       |
 | price         | integer    | null :false       |
 | ship_fee_id   | integer    | null :false       |
 | ship_date_id  | integer    | null :false       |
