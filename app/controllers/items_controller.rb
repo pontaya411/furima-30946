@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
   before_action :authenticate_user!, only: [:new, :create]
   def index
+    @items = Item.all
   end
 
   def new
