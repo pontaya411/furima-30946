@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   def index
     # 出品投稿の新しい順に表示できるようorderメソッド記述
     @items = Item.all.order(created_at: :desc)
@@ -27,6 +27,14 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path
+    else
+      render :edit
+    end    
+  end
   private
 
   def item_params
