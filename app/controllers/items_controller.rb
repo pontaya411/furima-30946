@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+
+  before_action :contributor_confirmation, only: [:update]
   def index
     # 出品投稿の新しい順に表示できるようorderメソッド記述
     @items = Item.all.order(created_at: :desc)
@@ -40,5 +42,9 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:image, :name, :subscription, :status_id, :category_id, :price, :ship_fee_id, :ship_date_id,
                                  :prefecture_id).merge(user_id: current_user.id)
+  end
+
+  def contributor_confirmation
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 end
