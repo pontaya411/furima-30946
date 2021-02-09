@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-
-  before_action :contributor_confirmation, only: [:update]
+  before_action :set_item, only: [:show, :edit, :update]
+  before_action :contributor_confirmation, only: [:edit, :update]
   def index
     # 出品投稿の新しい順に表示できるようorderメソッド記述
     @items = Item.all.order(created_at: :desc)
@@ -22,21 +22,21 @@ class ItemsController < ApplicationController
   end
   
   def show
-    @item = Item.find(params[:id])
+    # 下記にまとめてset_itemで記述
   end
 
   def edit
-    @item = Item.find(params[:id])
+    # 下記にまとめてset_itemで記述
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path
     else
       render :edit
     end    
   end
+
   private
 
   def item_params
@@ -44,7 +44,11 @@ class ItemsController < ApplicationController
                                  :prefecture_id).merge(user_id: current_user.id)
   end
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def contributor_confirmation
-    redirect_to root_path unless current_user.id == @item.user_id
+    redirect_to root_path unless current_user.id == @item.user.id
   end
 end
