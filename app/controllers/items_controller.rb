@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update]
   def index
     # 出品投稿の新しい順に表示できるようorderメソッド記述
@@ -35,6 +35,12 @@ class ItemsController < ApplicationController
     else
       render :edit
     end    
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to root_path
+    end  
   end
 
   private
