@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   # ログインしていないユーザーをログイン画面に促す記述
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :contributor_confirmation, only: [:edit, :update]
+  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
   def index
     # 出品投稿の新しい順に表示できるようorderメソッド記述
     @items = Item.all.order(created_at: :desc)
