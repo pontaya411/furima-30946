@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
       render :new
     end
   end
-  
+
   def show
     # 下記にまとめてset_itemで記述
   end
@@ -34,13 +34,11 @@ class ItemsController < ApplicationController
       redirect_to item_path
     else
       render :edit
-    end    
+    end
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end  
+    redirect_to root_path if @item.destroy
   end
 
   private

@@ -7,7 +7,6 @@ RSpec.describe Buy, type: :model do
   end
 
   describe '商品購入機能' do
-
     context '商品購入がうまくいくとき' do
       it 'tokenがあれば保存できること' do
         expect(@buyaddresses).to be_valid
@@ -16,10 +15,10 @@ RSpec.describe Buy, type: :model do
 
     context '商品購入がうまくいかないとき' do
       it 'tokenが空では登録できないこと' do
-        @buyaddresses.token= nil
+        @buyaddresses.token = nil
         @buyaddresses.valid?
         expect(@buyaddresses.errors.full_messages).to include("Token can't be blank")
-      end 
+      end
     end
   end
 end

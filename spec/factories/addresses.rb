@@ -4,7 +4,7 @@ FactoryBot.define do
     city { '松戸市 ' }
     address_number { 3 }
     prefecture_id { 23 }
-    
+
     association :buy
   end
 end
