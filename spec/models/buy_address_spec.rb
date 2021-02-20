@@ -3,13 +3,19 @@ require 'rails_helper'
 RSpec.describe BuyAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
-    @buyaddresses = FactoryBot.build(:buy_address, user_id: user.id)
+    item = FactoryBot.create(:item)
+    @buyaddresses = FactoryBot.build(:buy_address, user_id: user.id, item_id: item.id)
   end
   describe '商品購入機能' do
     context '商品購入がうまくいくとき' do
       it '全ての情報が入力されていれば購入できる' do
         expect(@buyaddresses).to be_valid
       end
+
+       it '建物名が空でも登録できる' do
+         @buyaddresses.building_name = ''
+         expect(@buyaddresses).to be_valid
+       end
     end
 
     context '商品購入がうまくいかないとき' do
@@ -50,6 +56,12 @@ RSpec.describe BuyAddress, type: :model do
         expect(@buyaddresses.errors.full_messages).to include("Phone number can't be blank")
       end
 
+      it '電話番号は英数混合だと登録できない' do
+      @buyaddresses.phone_number = '1a23456789'
+      @buyaddresses.valid?
+      expect(@buyaddresses.errors.full_messages).to include("Phone number is invalid.")
+      end
+
       it '電話番号にハイフンが入っていると登録できない' do
         @buyaddresses.phone_number = 123 - 4567 - 7899
         @buyaddresses.valid?
@@ -67,6 +79,19 @@ RSpec.describe BuyAddress, type: :model do
         @buyaddresses.valid?
         expect(@buyaddresses.errors.full_messages).to include("Token can't be blank")
       end
+
+      it 'user_idが空では登録できないこと' do
+        @buyaddresses.user_id = nil
+        @buyaddresses.valid?
+        expect(@buyaddresses.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では登録できないこと' do
+        @buyaddresses.item_id = nil
+        @buyaddresses.valid?
+        expect(@buyaddresses.errors.full_messages).to include("Item can't be blank")
+      end
+
     end
   end
 end
