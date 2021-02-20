@@ -27,8 +27,6 @@
       document.getElementById("card-exp-month").removeAttribute("name");
       document.getElementById("card-exp-year").removeAttribute("name");
 
-      console.log(card);
-
       document.getElementById("charge-form").submit();
 
     });
